@@ -28,6 +28,14 @@ pipeline {
                 '''
                 archiveArtifacts artifacts: 'test1.txt'
               }
+            },
+            "test2" : {
+              stage('test2') {
+                sh '''
+                  echo 'Test1 !!!' > test2.txt
+                '''
+                archiveArtifacts artifacts: 'test2.txt'
+              }
             }
           ]
           parallel testStages
