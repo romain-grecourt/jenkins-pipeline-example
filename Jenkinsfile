@@ -21,11 +21,13 @@ pipeline {
       steps {
         script {
           testStages = [
-            "test1" : stage('test1') {
-              sh '''
-                echo 'Test1 !!!' > test1.txt
-              '''
-              archiveArtifacts artifacts: 'test1.txt'
+            "test1" : {
+              stage('test1') {
+                sh '''
+                  echo 'Test1 !!!' > test1.txt
+                '''
+                archiveArtifacts artifacts: 'test1.txt'
+              }
             }
           ]
           parallel testStages
