@@ -19,10 +19,17 @@ pipeline {
         docker { image 'node:7-alpine' }
       }
       steps {
-        sh '''
-          echo 'Testing :) ${BUILD_ID}' > test.txt
-        '''
-        archiveArtifacts artifacts: 'test.txt'
+        script {
+          testStages = [
+            "test1" : stage('test1') {
+              sh '''
+                echo 'Test1 !!!' > test.txt
+              '''
+              archiveArtifacts artifacts: 'test1.txt'
+            }
+          ]
+          parallel testStages
+        }
       }
     }
   }
