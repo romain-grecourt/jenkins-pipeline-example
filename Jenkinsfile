@@ -24,17 +24,23 @@ pipeline {
             "test1" : {
               stage('test1') {
                 sh '''
-                  echo 'Test1 !!!' > test1.txt
+                  echo 'Test1a !!!' > test1a.txt
                 '''
-                archiveArtifacts artifacts: 'test1.txt'
+                sh '''
+                  echo 'Test1b !!!' > test1b.txt
+                '''
+                archiveArtifacts artifacts: 'Test1*.txt'
               }
             },
             "test2" : {
               stage('test2') {
                 sh '''
-                  echo 'Test1 !!!' > test2.txt
+                  echo 'Test2a !!!' > test2a.txt
                 '''
-                archiveArtifacts artifacts: 'test2.txt'
+                sh '''
+                  echo 'Test2b !!!' > test2b.txt
+                '''
+                archiveArtifacts artifacts: 'test2*.txt'
               }
             }
           ]
