@@ -29,7 +29,7 @@ pipeline {
                 sh '''
                   echo 'Test1b !!!' > test1b.txt
                 '''
-                archiveArtifacts artifacts: 'Test1*.txt'
+                archiveArtifacts artifacts: 'test1*.txt'
               }
             },
             "test2" : {
