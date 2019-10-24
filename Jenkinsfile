@@ -47,7 +47,7 @@ pipeline {
           parallel testStages
           sh 'echo duh'
         }
-        sh 'yeah duh'
+        sh 'echo yeah-duh'
       }
     }
   }
