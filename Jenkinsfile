@@ -48,6 +48,7 @@ pipeline {
           sh 'echo duh'
         }
       }
+      sh 'yeah duh'
     }
   }
 }
