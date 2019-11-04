@@ -19,6 +19,7 @@ pipeline {
         docker { image 'node:7-alpine' }
       }
       steps {
+        sh 'blah'
         script {
           testStages = [
             "test1" : {
@@ -44,10 +45,12 @@ pipeline {
               }
             }
           ]
+          sh 'echo duh'
           parallel testStages
           sh 'echo duh'
         }
         sh 'echo yeah-duh'
+
       }
     }
   }
