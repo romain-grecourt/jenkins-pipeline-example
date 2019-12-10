@@ -11,6 +11,7 @@ pipeline {
       steps {
         sh '''
           echo 'Building :) ${BUILD_ID}' > build.txt
+          junit testResults: 'TEST-*.xml', allowEmptyResults: false
         '''
       }
     }
@@ -28,7 +29,8 @@ pipeline {
                   echo 'Test1a !!!' > test1a.txt
                 '''
                 sh '''
-                  echo 'Test1b !!!' > test1b.txt
+                  echo 'Test1b !!!' > test1b.txt\n\
+                  
                 '''
                 archiveArtifacts artifacts: 'test1*.txt'
               }
