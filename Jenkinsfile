@@ -10,7 +10,8 @@ pipeline {
       }
       steps {
         sh '''
-          echo 'Building :) ${BUILD_ID}' > build.txt
+          echo 'Building :) ${BUILD_ID}' > build.txt\n\
+          touch TEST-*.xml
         '''
         junit testResults: 'TEST-*.xml', allowEmptyResults: false
       }
