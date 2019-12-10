@@ -11,8 +11,8 @@ pipeline {
       steps {
         sh '''
           echo 'Building :) ${BUILD_ID}' > build.txt
-          junit testResults: 'TEST-*.xml', allowEmptyResults: false
         '''
+        junit testResults: 'TEST-*.xml', allowEmptyResults: false
       }
     }
     stage('Test') {
