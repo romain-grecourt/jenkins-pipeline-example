@@ -11,9 +11,9 @@ pipeline {
       steps {
         sh '''
           echo 'Building :) ${BUILD_ID}' > build.txt\n\
-          touch TEST-*.xml
+          touch TEST-io.helidon.common.reactive.BaseProcessorTest.xml
         '''
-        junit testResults: 'TEST-*.xml', allowEmptyResults: false
+        junit testResults: 'TEST-io.helidon.common.reactive.BaseProcessorTest.xml', allowEmptyResults: false
       }
     }
     stage('Test') {
@@ -31,8 +31,9 @@ pipeline {
                 '''
                 sh '''
                   echo 'Test1b !!!' > test1b.txt\n\
-                  
+                  touch TEST-io.helidon.build.publisher.model.PipelineEventsTest.xml
                 '''
+                junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineEventsTest.xml', allowEmptyResults: false
                 archiveArtifacts artifacts: 'test1*.txt'
               }
             },
@@ -42,8 +43,10 @@ pipeline {
                   echo 'Test2a !!!' > test2a.txt
                 '''
                 sh '''
-                  echo 'Test2b !!!' > test2b.txt
+                  echo 'Test2b !!!' > test2b.txt\n\
+                  touch TEST-io.helidon.build.publisher.model.PipelineRunTest.xml
                 '''
+                junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineRunTest.xml', allowEmptyResults: false
                 archiveArtifacts artifacts: 'test2*.txt'
               }
             }
@@ -53,7 +56,6 @@ pipeline {
           sh 'echo duh'
         }
         sh 'echo yeah-duh'
-
       }
     }
   }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd"
+           name="io.helidon.build.publisher.model.PipelineEventsTest"
+           time="0.153"
+           tests="2"
+           errors="0"
+           skipped="0"
+           failures="0">
+  <testcase name="testJSON" classname="io.helidon.build.publisher.model.PipelineEventsTest" time="0.151"/>
+  <testcase name="testApplyEvents" classname="io.helidon.build.publisher.model.PipelineEventsTest" time="0.001"/>
+</testsuite>
