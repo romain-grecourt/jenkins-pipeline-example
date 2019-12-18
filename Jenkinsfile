@@ -22,7 +22,7 @@ pipeline {
         docker { image 'node:7-alpine' }
       }
       steps {
-        sh 'echo blah'
+        sh 'echo blah ; sleep 2'
         script {
           testStages = [
             "test1" : {
