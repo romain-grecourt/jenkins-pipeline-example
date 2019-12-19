@@ -46,7 +46,7 @@ pipeline {
                   echo 'Test2b !!!' > test2b.txt\n\
                   touch TEST-io.helidon.build.publisher.model.PipelineRunTest.xml
                 '''
-                junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineRunTest.xml', allowEmptyResults: false
+                junit testResults: 'ATEST-io.helidon.build.publisher.model.PipelineRunTest.xml', allowEmptyResults: false
                 archiveArtifacts artifacts: 'test2*.txt'
               }
             }
