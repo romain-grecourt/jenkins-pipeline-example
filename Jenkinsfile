@@ -1,13 +1,18 @@
+// the label is unique and identifies the pod descriptor and its resulting pods
+// without this, the agent could be using a pod created from a different descriptor
+env.label = "ci-pod-${UUID.randomUUID().toString()}"
+
 pipeline {
-  agent none
+  agent {
+    kubernetes {
+      label "${env.label}"
+    }
+  }
   environment {
     FOO = 'bar'
   }
   stages {
     stage('Build') {
-      agent {
-        docker { image 'maven:3-alpine' }
-      }
       steps {
         sh '''
           echo 'Building :) ${BUILD_ID}' > build.txt\n\
@@ -18,9 +23,6 @@ pipeline {
       }
     }
     stage('Test') {
-      agent {
-        docker { image 'node:7-alpine' }
-      }
       steps {
         sh 'echo blah ; sleep 2'
         script {
