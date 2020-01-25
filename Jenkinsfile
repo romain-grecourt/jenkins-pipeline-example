@@ -3,7 +3,9 @@
 env.label = "ci-pod-${UUID.randomUUID().toString()}"
 
 pipeline {
-  agent any
+  agent {
+    kubernetes { }
+  }
   environment {
     FOO = 'bar'
   }
