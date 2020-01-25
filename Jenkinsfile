@@ -1,10 +1,8 @@
-// the label is unique and identifies the pod descriptor and its resulting pods
-// without this, the agent could be using a pod created from a different descriptor
-env.label = "ci-pod-${UUID.randomUUID().toString()}"
-
 pipeline {
   agent {
-    kubernetes { }
+    kubernetes {
+      label "jenkins-pipeline-example_${env.BRANCH_NAME}.${env.BUILD_ID}"
+    }
   }
   environment {
     FOO = 'bar'
