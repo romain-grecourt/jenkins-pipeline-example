@@ -6,6 +6,7 @@ pipeline {
     stage('default') {
       parallel {
         stage('build'){
+          steps{
             sh '''
                 echo "build (failing)!"
                 exit 1
@@ -16,6 +17,7 @@ pipeline {
             sh '''
                 echo "checkstyle!"
             '''
+          }
         }
       }
     }
