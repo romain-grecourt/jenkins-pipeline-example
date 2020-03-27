@@ -11,6 +11,7 @@ pipeline {
               try {
                 sh '''
                   echo "build (failing)!"
+                  touch ./TEST-io.helidon.build.publisher.model.PipelineRunTest.xml
                   exit 1
                 '''
               } finally {
