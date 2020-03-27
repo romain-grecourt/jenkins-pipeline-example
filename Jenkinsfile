@@ -15,6 +15,7 @@ pipeline {
                   exit 1
                 '''
               } finally {
+                archiveArtifacts artifacts: "**/*.xml"
                 junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineRunTest.xml'
               }
             }
