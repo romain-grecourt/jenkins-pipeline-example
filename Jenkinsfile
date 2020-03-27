@@ -7,13 +7,15 @@ pipeline {
       parallel {
         stage('build'){
           steps {
-            try {
-              sh '''
-                echo "build (failing)!"
-                exit 1
-              '''
-            } finally {
-              junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineRunTest.xml'
+            script {
+              try {
+                sh '''
+                  echo "build (failing)!"
+                  exit 1
+                '''
+              } finally {
+                junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineRunTest.xml'
+              }
             }
           }
         }
