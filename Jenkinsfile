@@ -12,7 +12,7 @@ pipeline {
                 sh '''
                   echo "build (failing)!"
                   touch ./TEST-io.helidon.build.publisher.model.PipelineRunTest.xml
-                  exit 1
+                  sleep 30
                 '''
               } finally {
                 archiveArtifacts artifacts: "**/*.xml"
@@ -23,7 +23,7 @@ pipeline {
         }
         stage('copyright'){
           steps {
-            sh 'echo "copyright!"'
+            sh 'echo "copyright!" ; exit 1'
           }
         }
         stage('checkstyle'){
