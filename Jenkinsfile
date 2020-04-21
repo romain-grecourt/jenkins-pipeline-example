@@ -4,32 +4,37 @@ pipeline {
   }
   stages {
     stage('default') {
-      parallel {
-        stage('build'){
-          steps {
-            script {
-              try {
-                sh '''
-                  echo "build (failing)!"
-                  touch ./TEST-io.helidon.build.publisher.model.PipelineRunTest.xml
-                  sleep 30
-                '''
-              } finally {
-                archiveArtifacts artifacts: "**/*.xml"
-                junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineRunTest.xml'
+      steps {
+        script {
+          stages = [
+              'build': {
+                  stage('build') {
+                      script {
+                        try {
+                          sh '''
+                            echo "build (failing)!"
+                            touch ./TEST-io.helidon.build.publisher.model.PipelineRunTest.xml
+                            sleep 30
+                          '''
+                        } finally {
+                          archiveArtifacts artifacts: "**/*.xml"
+                          junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineRunTest.xml'
+                        }
+                      }
+                  }
+              },
+              'copyright': {
+                  stage('copyright') {
+                      sh 'echo "copyright!" ; exit 1'
+                  }
+              },
+              'checkstyle': {
+                  stage('checkstyle') {
+                      sh 'echo "checkstyle!"'
+                  }
               }
-            }
-          }
-        }
-        stage('copyright'){
-          steps {
-            sh 'echo "copyright!" ; exit 1'
-          }
-        }
-        stage('checkstyle'){
-          steps {
-            sh 'echo "checkstyle!"'
-          }
+          ]
+          parallel testStages
         }
       }
     }
