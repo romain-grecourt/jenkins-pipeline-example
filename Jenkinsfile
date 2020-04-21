@@ -34,7 +34,7 @@ pipeline {
                   }
               }
           ]
-          parallel testStages
+          parallel stages
         }
       }
     }
