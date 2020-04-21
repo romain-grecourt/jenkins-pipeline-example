@@ -12,7 +12,7 @@ pipeline {
                       script {
                         try {
                           sh '''
-                            echo "build (failing)!"
+                            echo "build (failing)!!"
                             touch ./TEST-io.helidon.build.publisher.model.PipelineRunTest.xml
                             sleep 30
                           '''
