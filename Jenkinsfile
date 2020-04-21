@@ -9,7 +9,6 @@ pipeline {
           stages = [
               'build': {
                   stage('build') {
-                      script {
                         try {
                           sh '''
                             echo "build (failing)!"
@@ -20,7 +19,6 @@ pipeline {
                           archiveArtifacts artifacts: "**/*.xml"
                           junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineRunTest.xml'
                         }
-                      }
                   }
               },
               'copyright': {
