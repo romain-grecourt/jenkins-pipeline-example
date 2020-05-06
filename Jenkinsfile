@@ -14,7 +14,8 @@ pipeline {
                           sh '''
                             echo "build !!!"
                             touch ./TEST-io.helidon.build.publisher.model.PipelineRunTest.xml
-                            sleep 120
+                            sleep 30
+                            echo "done."
                           '''
                         } finally {
                           archiveArtifacts artifacts: "**/*.xml"
