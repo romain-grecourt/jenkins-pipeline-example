@@ -25,7 +25,7 @@ pipeline {
               },
               'copyright': {
                   stage('copyright') {
-                      sh 'echo "copyright!"
+                      sh 'echo "copyright!"'
                   }
               },
               'checkstyle': {
