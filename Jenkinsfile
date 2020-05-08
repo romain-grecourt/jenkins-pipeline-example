@@ -1,64 +1,42 @@
 pipeline {
   agent {
-    kubernetes {
-      label "jenkins-pipeline-example_${env.BRANCH_NAME}.${env.BUILD_ID}"
-    }
-  }
-  environment {
-    FOO = 'bar'
+    docker { image 'maven:3-alpine' }
   }
   stages {
-    stage('Build') {
+    stage('default') {
       steps {
-        sh '''
-          echo 'Building :) ${BUILD_ID}' > build.txt\n\
-          touch TEST-io.helidon.common.reactive.BaseProcessorTest.xml
-          sleep 3
-        '''
-        junit testResults: 'TEST-io.helidon.common.reactive.BaseProcessorTest.xml', allowEmptyResults: false
-      }
-    }
-    stage('Test') {
-      steps {
-        sh 'echo blah ; sleep 2'
         script {
-          testStages = [
-            "test1" : {
-              stage('test1') {
-                sh '''
-                  echo 'Test1a !!!' > test1a.txt
-                  sleep 5
-                '''
-                sh '''
-                  echo 'Test1b !!!' > test1b.txt\n\
-                  touch TEST-io.helidon.build.publisher.model.PipelineEventsTest.xml
-                  sleep 2
-                '''
-                junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineEventsTest.xml', allowEmptyResults: false
-                archiveArtifacts artifacts: 'test1*.txt'
+          stages = [
+              'build': {
+                  stage('build') {
+                      script {
+                        try {
+                          sh '''
+                            echo "build !!!"
+                            touch ./TEST-io.helidon.build.publisher.model.PipelineRunTest.xml
+                            sleep 30
+                            echo "done."
+                          '''
+                        } finally {
+                          archiveArtifacts artifacts: "**/*.xml"
+                          junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineRunTest.xml'
+                        }
+                      }
+                  }
+              },
+              'copyright': {
+                  stage('copyright') {
+                      sh 'echo "copyright!"'
+                  }
+              },
+              'checkstyle': {
+                  stage('checkstyle') {
+                      sh 'echo "checkstyle!"'
+                  }
               }
-            },
-            "test2" : {
-              stage('test2') {
-                sh '''
-                  echo 'Test2a !!!' > test2a.txt
-                  sleep 10
-                '''
-                sh '''
-                  echo 'Test2b !!!' > test2b.txt\n\
-                  touch TEST-io.helidon.build.publisher.model.PipelineRunTest.xml
-                  sleep 4
-                '''
-                junit testResults: 'TEST-io.helidon.build.publisher.model.PipelineRunTest.xml', allowEmptyResults: false
-                archiveArtifacts artifacts: 'test2*.txt'
-              }
-            }
           ]
-          sh 'echo duh ; sleep 2'
-          parallel testStages
-          sh 'echo duh ; sleep 3'
+          parallel stages
         }
-        sh 'echo yeah-duh ; sleep 1'
       }
     }
   }
