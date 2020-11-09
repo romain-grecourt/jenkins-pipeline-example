@@ -1,12 +1,4 @@
 pipeline {
-  agent {
-    kubernetes {
-      label "jenkins-pipeline-example_${env.BRANCH_NAME}.${env.BUILD_ID}"
-    }
-  }
-  environment {
-    FOO = 'bar'
-  }
   stages {
     stage('Build') {
       steps {
@@ -15,6 +7,7 @@ pipeline {
           touch TEST-io.helidon.common.reactive.BaseProcessorTest.xml
           sleep 3
         '''
+        archiveArtifacts artifacts: '*.txt'
         junit testResults: 'TEST-io.helidon.common.reactive.BaseProcessorTest.xml', allowEmptyResults: false
       }
     }
