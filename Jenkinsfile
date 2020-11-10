@@ -6,7 +6,9 @@ pipeline {
         sh '''
           hostname
           uname -ra
-          echo 'Building :) ${BUILD_ID}' > build.txt\n\
+          echo "Building :) ${BUILD_ID}" > build.txt
+          hostname >> build.txt
+          uname -ra >> build.txt
           touch TEST-io.helidon.common.reactive.BaseProcessorTest.xml
           sleep 3
         '''
