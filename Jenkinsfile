@@ -18,9 +18,6 @@ pipeline {
       }
     }
     stage('Test') {
-      agent {
-        label "linux"
-      }
       steps {
         sh 'echo blah ; sleep 2'
         script {
