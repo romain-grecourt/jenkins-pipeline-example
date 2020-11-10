@@ -4,6 +4,8 @@ pipeline {
     stage('Build') {
       steps {
         sh '''
+          hostname
+          uname -ra
           echo 'Building :) ${BUILD_ID}' > build.txt\n\
           touch TEST-io.helidon.common.reactive.BaseProcessorTest.xml
           sleep 3
@@ -25,6 +27,8 @@ pipeline {
               stage('test1') {
                 unstash 'build'
                 sh '''
+                  hostname
+                  uname -ra
                   cat build.txt
                 '''
                 sh '''
@@ -44,6 +48,8 @@ pipeline {
               stage('test2') {
                 unstash 'build'
                 sh '''
+                  hostname
+                  uname -ra
                   cat build.txt
                 '''
                 sh '''
