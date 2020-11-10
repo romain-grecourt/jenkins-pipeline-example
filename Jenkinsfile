@@ -8,6 +8,7 @@ pipeline {
           touch TEST-io.helidon.common.reactive.BaseProcessorTest.xml
           sleep 3
         '''
+        stash includes: '*.txt', name: 'build'
         archiveArtifacts artifacts: '*.txt'
         junit testResults: 'TEST-io.helidon.common.reactive.BaseProcessorTest.xml', allowEmptyResults: false
       }
@@ -19,6 +20,10 @@ pipeline {
           testStages = [
             "test1" : {
               stage('test1') {
+                unstash 'build'
+                sh '''
+                  cat build.txt
+                '''
                 sh '''
                   echo 'Test1a !!!' > test1a.txt
                   sleep 5
@@ -34,6 +39,10 @@ pipeline {
             },
             "test2" : {
               stage('test2') {
+                unstash 'build'
+                sh '''
+                  cat build.txt
+                '''
                 sh '''
                   echo 'Test2a !!!' > test2a.txt
                   sleep 10
