@@ -9,6 +9,7 @@ pipeline {
           echo "Building :) ${BUILD_ID}" > build.txt
           hostname >> build.txt
           uname -ra >> build.txt
+          echo "oki" >> build.txt
           touch TEST-io.helidon.common.reactive.BaseProcessorTest.xml
           sleep 3
         '''
